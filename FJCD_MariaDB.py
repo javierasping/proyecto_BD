@@ -1,31 +1,22 @@
 # MariaDB [(none)]> CREATE USER 'javier'@'%' IDENTIFIED BY 'javier';
 # MariaDB [(none)]> GRANT ALL PRIVILEGES ON *.* TO 'javier'@'%';
 
-from FJCD_funciones import MariaDBmenu,MariaDB_PiezasPorAutor,MariaDB_ListarNombrePiezasAutoresQueEmpiezenPor
+from FJCD_funciones import MariaDBmenu,MariaDB_PiezasPorAutor,MariaDB_ListarNombrePiezasAutoresQueEmpiezenPor,MariaDB_CodPiezasPrograma,MariaDBInsertar,MariaDBBorrarAutores10,MariaDBActualizarBiografia
 import mysql.connector
-opcion_elegida=0
 
-# Establece la cadena de conexión a la base de datos
+opcion_elegida=0
 conn = mysql.connector.connect(user="javier", password="javier", host="192.168.105.132", database="consultas")
-# Crea un cursor para realizar consultas
 cursor = conn.cursor()
-# Ejecuta una consulta
-# cursor.execute("SELECT * FROM clientes")
-# # Lee los resultados de la consulta
-# for row in cursor:
-#     print(row)
-# Cierra el cursor y la conexión
-# cursor.close()
-# conn.close()
+
 
 
 while opcion_elegida != 6 :
     #Menu para elegir opccion
     opcion_elegida=MariaDBmenu()
     
-    # 0.Introduce el codigo de una pieza para buscar a que programa pertenece una obra .
+    # 0. Introduce el nombre de una pieza para buscar a que programa pertenece.
     if opcion_elegida == 0:
-        MariaDB_PiezasPorAutor(cursor)
+        MariaDB_CodPiezasPrograma(cursor)
     # 1. Lista cuantas piezas a compuesto cada autor .
     elif opcion_elegida == 1:
         MariaDB_PiezasPorAutor(cursor)
@@ -37,14 +28,14 @@ while opcion_elegida != 6 :
     # 3. Inserta en la tabla autor , nuevos autores cuyo nombre sea el nombre de las obras que tienen menos de 10 letras.
 
     elif opcion_elegida == 3:
-        print("a")
+        MariaDBInsertar(cursor)
     # 4. Borra de la tabla autor los nombres que tengan mas de 10 letras;
     elif opcion_elegida == 4:
-        print("a")
+        MariaDBBorrarAutores10(cursor)
 
-    # 5. Actualiza todos las piezas cuya grabacion tenga el campo nulo y pon el siguiente enlace 'https://spotify.es'
+    # 5. Actualiza todos los autores cuya biogrfia tenga el campo 'https://null.es' y pon el siguiente enlace 'https://spotify.es'
     elif opcion_elegida == 5:
-        print("a")
+        MariaDBActualizarBiografia(cursor)
 
 
 if opcion_elegida==6:
@@ -57,3 +48,13 @@ if opcion_elegida==6:
 # WHERE autor.NOMBRE_AUTOR LIKE 'S%' AND pieza.NOMBRE_PIEZA IS NOT NULL
 # ORDER BY autor.NOMBRE_AUTOR;
 
+# SELECT programa_pieza.CODIGO_PROGRAMA 
+# FROM programa_pieza 
+# INNER JOIN pieza ON programa_pieza.CODIGO_PIEZA = pieza.CODIGO_PIEZA 
+# WHERE pieza.NOMBRE_PIEZA = 'Oda a Jesus';
+
+# INSERT INTO autor (NOMBRE_AUTOR, BIOGRAFIA)
+# SELECT NOMBRE_PIEZA, 'https://null.es'
+# FROM pieza
+# WHERE LENGTH(NOMBRE_PIEZA) < 10
+# AND NOMBRE_PIEZA NOT IN (SELECT NOMBRE_AUTOR FROM autor);
