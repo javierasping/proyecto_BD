@@ -42,19 +42,3 @@ if opcion_elegida==6:
     cursor.close()
     conn.close()
 
-# SELECT autor.NOMBRE_AUTOR, pieza.NOMBRE_PIEZA
-# FROM autor
-# LEFT JOIN pieza ON autor.NOMBRE_AUTOR = pieza.NOMBRE_AUTOR
-# WHERE autor.NOMBRE_AUTOR LIKE 'S%' AND pieza.NOMBRE_PIEZA IS NOT NULL
-# ORDER BY autor.NOMBRE_AUTOR;
-
-# SELECT programa_pieza.CODIGO_PROGRAMA 
-# FROM programa_pieza 
-# INNER JOIN pieza ON programa_pieza.CODIGO_PIEZA = pieza.CODIGO_PIEZA 
-# WHERE pieza.NOMBRE_PIEZA = 'Oda a Jesus';
-
-# INSERT INTO autor (NOMBRE_AUTOR, BIOGRAFIA)
-# SELECT NOMBRE_PIEZA, 'https://null.es'
-# FROM pieza
-# WHERE LENGTH(NOMBRE_PIEZA) < 10
-# AND NOMBRE_PIEZA NOT IN (SELECT NOMBRE_AUTOR FROM autor);
