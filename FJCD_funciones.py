@@ -19,7 +19,7 @@ def MariaDB_CodPiezasPrograma(cursor):
     consulta = f"SELECT programa_pieza.CODIGO_PROGRAMA FROM programa_pieza INNER JOIN pieza ON programa_pieza.CODIGO_PIEZA = pieza.CODIGO_PIEZA WHERE pieza.NOMBRE_PIEZA = '{NombreObra}';"
     cursor.execute(consulta)
     for CodigoPrograma in cursor:
-            print(CodigoPrograma)
+        print(CodigoPrograma)
 
 
 # 1. Lista cuantas piezas a compuesto cada autor .
@@ -52,3 +52,10 @@ def MariaDBActualizarBiografia(cursor):
      cursor.execute("UPDATE autor SET BIOGRAFIA = 'https://spotify.es' WHERE BIOGRAFIA = 'https://null.es';")
      print("Se han actualizado" ,cursor.rowcount, "filas.")
 
+
+
+#POSTGREE
+# 3. Inserta en la tabla autor , nuevos autores cuyo nombre sea el nombre de las obras que tienen menos de 10 letras.
+def PostgreInsertar(cursor):
+    cursor.execute("INSERT INTO autor (NOMBRE_AUTOR, BIOGRAFIA) SELECT NOMBRE_PIEZA, 'https://null.es' FROM pieza WHERE LENGTH(NOMBRE_PIEZA) < 10 AND NOMBRE_PIEZA NOT IN (SELECT NOMBRE_AUTOR FROM autor) ON CONFLICT DO NOTHING;")
+    print("Se han insertado" ,cursor.rowcount, "filas.")
