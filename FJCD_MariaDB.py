@@ -41,4 +41,3 @@ while opcion_elegida != 6 :
 if opcion_elegida==6:
     cursor.close()
     conn.close()
-

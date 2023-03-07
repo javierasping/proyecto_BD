@@ -3,7 +3,7 @@ from FJCD_funciones import MariaDBmenu,MariaDB_PiezasPorAutor,MariaDB_ListarNomb
 import psycopg2
 
 opcion_elegida=0
-conn = psycopg2.connect(user="javier", password="javier", host="192.168.105.133",port='5432', database="consultas")
+conn = psycopg2.connect(user="javier", password="javier", host="192.168.105.133",port='5433', database="consultas")
 cursor = conn.cursor()
 
 
